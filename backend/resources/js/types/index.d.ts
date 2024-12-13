@@ -4,6 +4,14 @@ export interface User {
     email: string;
     email_verified_at?: string;
 }
+export interface Book {
+    id: number;
+    title: string;
+    author: string;
+    description: string;
+    file_url: string;
+    image_url: string;
+}
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
@@ -11,4 +19,12 @@ export type PageProps<
     auth: {
         user: User;
     };
+};
+export type BooksProps<
+    T extends Record<string, unknown> = Record<string, unknown>,
+> = T & {
+    auth: {
+        user: User;
+    };
+    books: Book[];
 };

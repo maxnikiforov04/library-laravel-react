@@ -4,7 +4,7 @@ import { PageProps } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export default function CreateBook({ auth }: PageProps) {
+export default function EditBook({ auth }: PageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
         author: '',

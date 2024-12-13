@@ -15,6 +15,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('all-books', [BookController::class, 'read_all_books']);
+
 Route::get('create-book', function () {
     return Inertia::render('Book/CreateBook');
 })->name('create-book');
@@ -25,11 +27,15 @@ Route::get('dashboard', function () {
 
 Route::post('store_book', [BookController::class, 'store'])->name('store.book');
 
+Route::get('download_book/{book}', [BookController::class, 'download_pdf'])->name('download.book');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/books', [BookController::class, 'read_all_user_books'])->name('books.index');
+    Route::get('my-books', [BookController::class, 'user_books'])->name('books.index');
+    Route::delete('my-books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+    Route::get('edit-book/{book}', [BookController::class, 'edit_book'])->name('books.edit');
 });
 
 require __DIR__.'/auth.php';
