@@ -29,13 +29,16 @@ Route::post('store_book', [BookController::class, 'store'])->name('store.book');
 
 Route::get('download_book/{book}', [BookController::class, 'download_pdf'])->name('download.book');
 
+Route::patch('book-update/{book}', [BookController::class, 'update'])->name('book.update');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('my-books', [BookController::class, 'user_books'])->name('books.index');
     Route::delete('my-books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
-    Route::get('edit-book/{book}', [BookController::class, 'edit_book'])->name('books.edit');
+    Route::get('edit-book/{book_id}', [BookController::class, 'edit_book'])->name('books.edit');
+
 });
 
 require __DIR__.'/auth.php';

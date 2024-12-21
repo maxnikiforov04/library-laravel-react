@@ -38,6 +38,14 @@ export default function MainLayout({ auth }: PageProps) {
                                 </li>
                                 <li>
                                     <Link
+                                        href={route('books.index')}
+                                        className="rounded-md"
+                                    >
+                                        My Books
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
                                         href={route('logout')}
                                         className="rounded-md text-error"
                                         method="post"

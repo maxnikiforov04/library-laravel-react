@@ -30,15 +30,27 @@ export default function UserBooks({ auth, books }: BooksProps) {
                                         {element.title}
                                     </h2>
                                     <p>{element.description}</p>
-                                    <div className="card-actions justify-end">
-                                        <Link
-                                            className="btn"
-                                            method="delete"
-                                            as="buttons"
-                                            href={'my-books/' + element.id}
-                                        >
-                                            Delete
-                                        </Link>
+                                    <div className="flex justify-between">
+                                        <div className="card-actions">
+                                            <Link
+                                                className="btn"
+                                                method="get"
+                                                as="buttons"
+                                                href={'edit-book/' + element.id}
+                                            >
+                                                Edit
+                                            </Link>
+                                        </div>
+                                        <div className="card-actions">
+                                            <Link
+                                                className="btn text-red-500"
+                                                method="delete"
+                                                as="buttons"
+                                                href={'my-books/' + element.id}
+                                            >
+                                                Delete
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

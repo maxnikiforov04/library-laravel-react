@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\StoreRequest;
+use App\Http\Requests\Book\UpdateRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class BookController extends Controller
         $data = $request->validated();
         try {
             if ($request->hasFile('file_url') && $request->hasFile('image_url')) {
-                $path_to_file = $request->file('file_url')->store('books');
+                $path_to_file = $request->file('file_url')->store('books', 'public');
                 $path_to_image = $request->file('image_url')->store('images', 'public');
                 $data['file_url'] = Storage::url($path_to_file);
                 $data['image_url'] = Storage::url($path_to_image);
@@ -62,11 +63,31 @@ class BookController extends Controller
         return 0;
     }
 
-    public function edit_book(Book $book)
+    public function edit_book(Book $book_id)
     {
-        $current_book = Book::all()->where('id','=',$book);
-        return Inertia::render('Book/UserBooks', [
-            'books' => $current_book
+        $current_book = Book::find($book_id)->first();
+        return Inertia::render('Book/EditBook', [
+            'book' => $current_book
         ]);
+    }
+
+    public function update(Book $book, UpdateRequest $request)
+    {
+
+        $data = $request->validated();
+        if(!$data['file_url']===null ){
+            $path_to_file = $request->file('file_url')->store('books', 'public');
+            $data['file_url'] = Storage::url($path_to_file);
+            dd($data);
+        }else{
+            unset($data['file_url']);
+        }
+        if( !$data['image_url']===null ){
+            $path_to_image = $request->file('image_url')->store('images', 'public');
+            $data['image_url'] = Storage::url($path_to_image);
+        }else{
+            unset($data['image_url']);
+        }
+        Book::where('id', $book['id'])->update(array_filter($data));
     }
 }

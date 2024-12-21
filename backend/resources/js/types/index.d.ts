@@ -28,3 +28,11 @@ export type BooksProps<
     };
     books: Book[];
 };
+export type BookProps<
+    T extends Record<string, unknown> = Record<string, unknown>,
+> = T & {
+    auth: {
+        user: User;
+    };
+    book: Book;
+};

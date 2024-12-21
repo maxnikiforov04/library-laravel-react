@@ -1,27 +1,24 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import MainLayout from '@/Layouts/MainLayout';
-import { PageProps } from '@/types';
+import { BookProps } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export default function EditBook({ auth }: PageProps) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        title: '',
-        author: '',
-        description: '',
-        file_url: null as File | null,
-        image_url: null as File | null,
+export default function EditBook({ auth, book }: BookProps) {
+    const { data, setData, patch, processing, errors, reset } = useForm({
+        title: book.title,
+        author: book.author,
+        description: book.description,
+        file_url: null as File | null | string,
+        image_url: null as File | null | string,
         user_id: auth.user.id,
     });
-
+    console.log(data);
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         console.log(data);
-        if (!data.file_url || !data.image_url) {
-            alert('Please select a file to upload.');
-            return;
-        }
-        post(route('store.book'), {
+
+        patch(route('book.update', book.id), {
             onSuccess: () => {
                 reset();
             },
