@@ -5,7 +5,7 @@ export default function MainLayout({ auth }: PageProps) {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <a href="/all-books" className="btn btn-ghost text-xl">
+                <a href="/" className="btn btn-ghost text-xl">
                     Free Lib
                 </a>
             </div>

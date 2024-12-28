@@ -13,8 +13,9 @@ export default function CreateBook({ auth }: PageProps) {
         image_url: null as File | null,
         user_id: auth.user.id,
     });
-
+    console.log(data);
     const submit: FormEventHandler = (e) => {
+        console.log(data);
         e.preventDefault();
         console.log(data);
         if (!data.file_url || !data.image_url) {
@@ -23,6 +24,7 @@ export default function CreateBook({ auth }: PageProps) {
         }
         post(route('store.book'), {
             onSuccess: () => {
+                console.log(data);
                 reset();
             },
             onError: (errors) => {

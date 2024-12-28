@@ -13,7 +13,7 @@ export default function MainPage({ auth, books }: BooksProps) {
                 {books.length === 0 ? (
                     <p>No books available.</p>
                 ) : (
-                    <div className="flex flex-wrap justify-between gap-24">
+                    <div className="grid gap-24 sm:grid-cols-2 lg:grid-cols-3">
                         {books.map((element) => (
                             <div
                                 className="card w-96 bg-base-100 shadow-xl"

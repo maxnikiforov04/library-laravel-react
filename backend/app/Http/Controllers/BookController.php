@@ -51,7 +51,8 @@ class BookController extends Controller
 
     public function user_books()
     {
-        $book = Book::all()->where('user_id', '=', auth()->user()->id);
+        $books = Book::all();
+        $book = Book::all()->where('user_id', '=', auth()->user()->id)->toArray();
         return Inertia::render('Book/UserBooks', [
             'books' => $book
         ]);
@@ -73,21 +74,7 @@ class BookController extends Controller
 
     public function update(Book $book, UpdateRequest $request)
     {
-
         $data = $request->validated();
-        if(!$data['file_url']===null ){
-            $path_to_file = $request->file('file_url')->store('books', 'public');
-            $data['file_url'] = Storage::url($path_to_file);
-            dd($data);
-        }else{
-            unset($data['file_url']);
-        }
-        if( !$data['image_url']===null ){
-            $path_to_image = $request->file('image_url')->store('images', 'public');
-            $data['image_url'] = Storage::url($path_to_image);
-        }else{
-            unset($data['image_url']);
-        }
         Book::where('id', $book['id'])->update(array_filter($data));
     }
 }

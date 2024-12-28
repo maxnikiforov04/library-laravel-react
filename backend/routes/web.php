@@ -6,16 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
-Route::get('all-books', [BookController::class, 'read_all_books']);
+Route::get('/', [BookController::class, 'read_all_books']);
 
 Route::get('create-book', function () {
     return Inertia::render('Book/CreateBook');

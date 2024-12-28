@@ -5,19 +5,15 @@ import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function EditBook({ auth, book }: BookProps) {
-    const { data, setData, patch, processing, errors, reset } = useForm({
-        title: book.title,
-        author: book.author,
-        description: book.description,
-        file_url: null as File | null | string,
-        image_url: null as File | null | string,
+    const { data, setData, patch, processing, reset } = useForm({
+        title: book.title || '',
+        author: book.author || '',
+        description: book.description || '',
         user_id: auth.user.id,
     });
     console.log(data);
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        console.log(data);
-
         patch(route('book.update', book.id), {
             onSuccess: () => {
                 reset();
@@ -60,50 +56,6 @@ export default function EditBook({ auth, book }: BookProps) {
                             }
                             className="textarea textarea-bordered h-40 w-full"
                         />
-                    </div>
-                    <div className="mt-6 flex justify-between space-x-8">
-                        <label className="form-control w-full max-w-xs">
-                            <div className="label">
-                                <span className="label-text">
-                                    Pick a book file
-                                </span>
-                            </div>
-                            <input
-                                name="file"
-                                type="file"
-                                accept=".pdf"
-                                onChange={(e) => {
-                                    const file_url =
-                                        e.target.files?.[0] || null;
-                                    setData('file_url', file_url);
-                                }}
-                                className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-                            />
-                        </label>
-                        <label className="form-control w-full max-w-xs">
-                            <div className="label">
-                                <span className="label-text">
-                                    Pick a book image
-                                </span>
-                            </div>
-                            <input
-                                name="image"
-                                type="file"
-                                accept=".jpg,.jpeg,.png"
-                                onChange={(e) => {
-                                    const image_url =
-                                        e.target.files?.[0] || null;
-                                    setData('image_url', image_url);
-                                }}
-                                className="file-input file-input-bordered file-input-secondary w-full max-w-xs"
-                            />
-                        </label>
-
-                        {errors.file_url && (
-                            <span className="text-red-500">
-                                {errors.file_url}
-                            </span>
-                        )}
                     </div>
                     <div className="flex justify-end">
                         <PrimaryButton

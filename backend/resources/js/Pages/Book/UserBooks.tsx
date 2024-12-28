@@ -5,6 +5,7 @@ import { BooksProps } from '@/types';
 import { Link } from '@inertiajs/react';
 
 export default function UserBooks({ auth, books }: BooksProps) {
+    console.log(Object.values(books));
     return (
         <div className="h-screen">
             <MainLayout auth={auth} />
@@ -14,7 +15,7 @@ export default function UserBooks({ auth, books }: BooksProps) {
                     <p>No books available.</p>
                 ) : (
                     <div className="flex flex-wrap justify-between gap-24">
-                        {books.map((element) => (
+                        {Object.values(books).map((element) => (
                             <div
                                 className="card w-96 bg-base-100 shadow-xl"
                                 key={element.id}
